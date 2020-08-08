@@ -1,2 +1,0 @@
-# mean-course
-MEAN Application
