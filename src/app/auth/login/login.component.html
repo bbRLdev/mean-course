@@ -1,0 +1,23 @@
+<mat-card>
+    <form *ngIf="!isLoading" (submit)="onLogin()" [formGroup]="loginForm">
+        <mat-form-field>
+            <input 
+                matInput 
+                type="email" 
+                placeholder="Email address"
+                formControlName="email">
+            <mat-error *ngIf="loginForm.get('email').invalid"> Pls enter valid emaiil</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input
+                type="password"
+                matInput 
+                placeholder="Password"
+                formControlName="password">
+            <mat-error *ngIf="loginForm.get('password').invalid"> Pls enter valid password</mat-error>
+        </mat-form-field>
+        <button *ngIf="!isLoading" color="primary" mat-raised-button type="submit" [disabled]="">Login</button>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+    </form>
+</mat-card>

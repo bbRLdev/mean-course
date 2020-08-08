@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onSavePost()" *ngIf="!isLoading" [formGroup]="createPostForm">
+        <mat-form-field>
+            <input 
+                matInput 
+                type="text" 
+                minlength="3" 
+                placeholder="Post Title"
+                formControlName="title">
+            <mat-error *ngIf="createPostForm.get('title').invalid"> Pls enter valid title</mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-stroked-button (click)="fileSelector.click()" type="button">Pick Image</button>
+            <input type="file" #fileSelector (change)="onImageSelect($event)">
+        </div>
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && createPostForm.get('image').valid">
+            <img [src]="imagePreview" [alt]="createPostForm.value.title">
+        </div>
+        <mat-form-field>
+            <textarea 
+                matInput 
+                rows="6" 
+                required
+                minlength="6" 
+                placeholder="Post Content"
+                formControlName="content"></textarea>
+            <mat-error *ngIf="createPostForm.get('content').invalid && createPostForm.get('content').touched"> Pls enter valid content</mat-error>
+
+        </mat-form-field>
+        <button color="primary" mat-raised-button type="submit" [disabled]="!createPostForm.valid">Save Post!</button>
+    </form>
+</mat-card>
