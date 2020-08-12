@@ -4,13 +4,13 @@ import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
+
 export class PostListComponent implements OnInit, OnDestroy {
   // posts = [
   //   { title: "Post 1", content: "Post 1 Content" },

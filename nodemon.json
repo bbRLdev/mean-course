@@ -1,0 +1,6 @@
+{
+    "env": {
+        "MONGO_PASS": "cr00kedjenny",
+        "JWT_KEY": "secret_should_b_longer"
+    }
+}
