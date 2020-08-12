@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -19,7 +20,7 @@ router.post("/signup", (req, res, next) => {
                 });
             }).catch(err=>{
                 res.status(500).json({
-                    error: err
+                    message: 'Invalid credentials! Email may be taken.',
                 });
             });
 
@@ -52,7 +53,7 @@ router.post("/login", (req, res, next) => {
                     userId: fetchedUser._id,
                 });
         }).catch(err => {
-            return res.status(401).json({ message: 'Auth failed!' });
+            return res.status(401).json({ message: 'Invalid credentials!' });
 
         });
 });

@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         req.userData =  { email: dToken.email, userId: dToken.userId }
         next();
     } catch (error) {
-        res.status(401).json({ message: 'No authentication!' });
+        res.status(401).json({ message: 'You lack authentication!' });
     }
 
 }

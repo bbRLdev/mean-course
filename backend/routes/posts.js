@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 const express = require("express");
 const PostModel = require("../models/post");
 const checkAuth = require("../middleware/check-auth");
@@ -10,7 +11,7 @@ const MIME_TYPE_MAP = {
     'image/jpeg': 'jpg',
     'image/jpg': 'jpg',
 
-}
+};
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -50,7 +51,13 @@ router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res
                 imagePath: result.imagePath,
             }
         });
-    });
+    }).catch(
+        error=>{
+            res.status(500).json({
+                message: 'Post creation failed!'
+            });
+        }
+    );
 });
 
 // UPDATE POST BY ID
@@ -76,7 +83,13 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
         } else {
             res.status(401).json({ message: "User not authorized"});
         }
-    });
+    }).catch(
+        error => {
+            res.status(500).json(
+                { message: "Something went wrong, post update failed!"}
+            );
+        }
+    );
 });
 
 // GET ALL POSTS
@@ -101,6 +114,10 @@ router.get("", (req, res, next) => {
             maxPosts: count
         });
 
+    }).catch(error=>{
+        res.status(500).json({
+            message: "Fetching posts failed!",
+        });
     });
 
 });
@@ -114,8 +131,12 @@ router.get("/:id", (req, res, next) => {
         } else {
             res.status(404).json({message: 'Post not found!'});
         }
-
-    });
+    }).catch(
+        error => {
+            res.status(500).json({
+                message: "Fetching single post failed!",
+            });        }
+    );
 });
 
 // DELETE POST BY ID
@@ -125,9 +146,15 @@ router.delete("/:id", checkAuth, (req, res, next) => {
             res.status(201).json({ message: "Update successful"});
 
         } else {
-            res.status(401).json({ message: "User not authorized"});
+            res.status(401).json({ message: "User not authorized to delete"});
         }
-    });
+    }).catch(
+        error => {
+            res.status(500).json({
+                message: "Deleting post failed!",
+            });        
+        }
+    );
 
 
 });
